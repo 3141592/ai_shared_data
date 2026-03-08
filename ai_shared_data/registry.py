@@ -32,3 +32,11 @@ ASSETS = {
         description="Short text used in LLM-from-scratch examples"
     ),
 }
+
+# ---- registry validation ----
+
+for key, asset in ASSETS.items():
+    if key != asset.name:
+        raise ValueError(
+            f"Registry mismatch: key '{key}' does not match asset.name '{asset.name}'"
+        )
