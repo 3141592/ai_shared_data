@@ -54,6 +54,7 @@ def main():
         print("  list")
         print("  check-all")
         print("  path <dataset>")
+        print("  rebuild <dataset>")
         return
 
     cmd = sys.argv[1]
@@ -72,6 +73,14 @@ def main():
         check_dataset(sys.argv[2])
     elif cmd == "check-all":
         sys.exit(check_all_assets())
+    elif cmd == "rebuild":
+        if len(sys.argv) < 3:
+            print("Usage: ai-data rebuild <asset>")
+            return
+
+        name = sys.argv[2]
+        path = ensure_asset(name, rebuild=True)
+        print(path)
     else:
         print(f"Unknown command: {cmd}")
 

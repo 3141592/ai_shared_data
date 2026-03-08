@@ -22,7 +22,7 @@ def get_asset_path(name: str) -> Path:
     return get_asset_home(asset.kind) / asset.relative_path
 
 
-def ensure_asset(name: str) -> Path:
+def ensure_asset(name: str, rebuild: bool = False) -> Path:
     """
     Ensure the asset exists locally.
 
@@ -32,7 +32,7 @@ def ensure_asset(name: str) -> Path:
     asset = ASSETS[name]
     path = get_asset_path(name)
 
-    if path.exists():
+    if path.exists() and not rebuild:
         return path
 
     if asset.builder:
