@@ -1,6 +1,8 @@
 from dataclasses import dataclass
 from typing import Optional, Callable
-from ai_shared_data.builders import build_asv_raw, build_jena_climate, build_asv_clean_nt
+from ai_shared_data.builders import build_acl_imdb, build_asv_raw
+from ai_shared_data.builders import build_jena_climate, build_asv_clean_nt
+from ai_shared_data.builders import build_dogs_vs_cats, build_oxford_pets
 
 @dataclass
 class Asset:
@@ -9,9 +11,34 @@ class Asset:
     relative_path: str
     description: Optional[str] = None
     builder: Optional[Callable[[], None]] = None
+    depends_on: Optional[list[str]] = None    
 
 
-ASSETS = {
+DATASETS = {
+    "dogs_vs_cats": Asset(
+        name="dogs_vs_cats",
+        kind="datasets",
+        relative_path="dogs-vs-cats",
+        description="Kaggle Dogs vs Cats image classification dataset",
+        builder=build_dogs_vs_cats
+    ),
+
+    "oxford_pets": Asset(
+        name="oxford_pets",
+        kind="datasets",
+        relative_path="images",
+        description="Oxford-IIIT Pet dataset (images and segmentation annotations)",
+        builder=build_oxford_pets,
+    ),
+
+    "aclImdb": Asset(
+        name="aclImdb",
+        kind="datasets",
+        relative_path="aclImdb",
+        description="Large Movie Review Dataset for binary sentiment classification",
+        builder=build_acl_imdb
+    ),
+
     "asv_raw": Asset(
         name="asv_raw",
         kind="datasets",
@@ -25,7 +52,8 @@ ASSETS = {
         kind="datasets",
         relative_path="interpretability/asv_clean_nt.txt",
         description="Cleaned New Testament used for language modeling",
-        builder=build_asv_clean_nt
+        builder=build_asv_clean_nt,
+        depends_on=["asv_raw"]
     ),
 
     "the_verdict": Asset(
@@ -33,7 +61,6 @@ ASSETS = {
         kind="datasets",
         relative_path="interpretability/the_verdict.txt",
         description="Short text used in LLM-from-scratch examples",
-        builder=build_asv_clean_nt
     ),
 
     "jena_climate": Asset(
@@ -44,6 +71,26 @@ ASSETS = {
         builder=build_jena_climate
     ),
 }
+
+EMBEDDINGS = {
+    # "glove_6B": Asset(...),
+    # "fasttext_wiki_news": Asset(...),
+}
+
+MODELS = {
+    # future model checkpoints
+}
+
+ARCHIVES = {
+    # optional raw archives if you want to track them explicitly
+}
+
+ASSETS = {}
+ASSETS.update(DATASETS)
+ASSETS.update(EMBEDDINGS)
+ASSETS.update(MODELS)
+ASSETS.update(ARCHIVES)
+
 
 # ---- registry validation ----
 

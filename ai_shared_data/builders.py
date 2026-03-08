@@ -50,7 +50,7 @@ def remove_tree(path: Path) -> None:
     if path.exists() and path.is_dir():
         shutil.rmtree(path)
 
-# Deep Learning with Python Ch 8
+# Deep Learning with Python Ch 8 - Dogs vs Cats image classification dataset from Kaggle
 def build_dogs_vs_cats() -> None:
     root = get_asset_home("datasets") / "dogs-vs-cats"
     tmp = ensure_tmp_dir()
@@ -58,10 +58,16 @@ def build_dogs_vs_cats() -> None:
 
     ensure_dir(root)
 
-    subprocess.run(
-        ["kaggle", "competitions", "download", "-c", "dogs-vs-cats", "-p", str(tmp)],
-        check=True,
-    )
+    try:
+        subprocess.run(
+            ["kaggle", "competitions", "download", "-c", "dogs-vs-cats", "-p", str(tmp)],
+            check=True,
+        )
+    except subprocess.CalledProcessError as exc:
+        raise RuntimeError(
+            "Failed to download dogs_vs_cats from Kaggle.\n"
+            "Check Kaggle authentication and confirm you accepted the competition rules."
+        ) from exc
 
     extract_zip(zip_path, root)
 
@@ -70,6 +76,32 @@ def build_dogs_vs_cats() -> None:
         extract_zip(train_zip, root)
 
     remove_file(zip_path)
+
+# Deep Learning with Python Ch 9 
+def build_oxford_pets() -> None:
+    from ai_shared_data.paths import get_data_home
+    from pathlib import Path
+
+    data_root = get_data_home() / "datasets"
+    tmp = ensure_tmp_dir()
+
+    images_tar = tmp / "images.tar.gz"
+    annotations_tar = tmp / "annotations.tar.gz"
+
+    images_url = "http://www.robots.ox.ac.uk/~vgg/data/pets/data/images.tar.gz"
+    annotations_url = "http://www.robots.ox.ac.uk/~vgg/data/pets/data/annotations.tar.gz"
+
+    # download
+    download_file(images_url, images_tar)
+    download_file(annotations_url, annotations_tar)
+
+    # extract
+    extract_tar(images_tar, data_root)
+    extract_tar(annotations_tar, data_root)
+
+    # cleanup
+    remove_file(images_tar)
+    remove_file(annotations_tar)
 
 # Deep Learning with Python Ch 10.2 A temperature-forecasting example   
 def build_jena_climate() -> None:

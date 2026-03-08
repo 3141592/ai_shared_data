@@ -50,25 +50,7 @@ Example structure after datasets are installed:
         README.md
 
     data/
-        aclImdb/
-        annotations/
-        cats_vs_dogs_small/
-        celeba_gan/
-        dlwp/
-        dogs-vs-cats/
-        fasttext/
-        glove.6B/
-        images/
-        interpretability/
-        models/
-        spa-eng/
-        voc2012/
-        downloader.py
-        parquet_data_check.py
-        tfutil.py
-        jena_climate_2009_2016.csv
-        VOCtrainval_11-May-2012.tar
-        wiki-news-300d-1M.vec
+        
 ```
 
 This keeps **large files outside project repositories**.
