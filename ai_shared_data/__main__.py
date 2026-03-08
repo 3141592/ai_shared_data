@@ -1,7 +1,7 @@
 import sys
 
 from ai_shared_data.registry import DATASETS
-from ai_shared_data.fetch import ensure_dataset, get_dataset_path
+from ai_shared_data.fetch import ensure_asset, get_asset_path
 
 
 def list_datasets():
@@ -11,12 +11,12 @@ def list_datasets():
 
 
 def show_path(name):
-    path = get_dataset_path(name)
+    path = get_asset_path(name)
     print(path)
 
 def check_dataset(name):
     try:
-        path = ensure_dataset(name)
+        path = ensure_asset(name)
         print(f"OK: {name}")
         print(path)
     except KeyError:

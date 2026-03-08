@@ -1,0 +1,52 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# pytest / coverage
+.coverage
+.coverage.*
+htmlcov/
+.pytest_cache/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Editor settings
+.vscode/
+.idea/
+
+# macOS
+.DS_Store
+
+# Local overrides
+.env
+
+# Temporary files
+*.tmp
+*.log
+
+# Prevent accidental large data files
+*.vec
+*.bin
+*.pt
+*.pth
+*.safetensors
+*.ckpt
+*.tar
+*.zip

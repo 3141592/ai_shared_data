@@ -1,40 +1,41 @@
 from pathlib import Path
 
-from ai_shared_data.paths import get_data_home
-from ai_shared_data.registry import DATASETS
+from ai_shared_data.paths import get_asset_home
+from ai_shared_data.registry import ASSETS
 
-def dataset_exists(name: str) -> bool:
+
+def asset_exists(name: str) -> bool:
     try:
-        path = get_dataset_path(name)
+        path = get_asset_path(name)
     except KeyError:
         return False
     return path.exists()
 
 
-def get_dataset_path(name: str) -> Path:
+def get_asset_path(name: str) -> Path:
     """
-    Return the full filesystem path for a dataset.
+    Return the full filesystem path for an asset.
 
-    Raises KeyError if the dataset name is not registered.
+    Raises KeyError if the asset name is not registered.
     """
-    dataset = DATASETS[name]
-    return get_data_home() / dataset.relative_path
+    asset = ASSETS[name]
+    return get_asset_home(asset.kind) / asset.relative_path
 
 
-def ensure_dataset(name: str) -> Path:
+def ensure_asset(name: str) -> Path:
     """
-    Ensure the dataset exists locally.
+    Ensure the asset exists locally.
 
-    Returns the dataset path if found.
-    Raises FileNotFoundError if the dataset is missing.
+    Returns the asset path if found.
+    Raises FileNotFoundError if the asset is missing.
     """
-    path = get_dataset_path(name)
+    path = get_asset_path(name)
 
     if not path.exists():
         raise FileNotFoundError(
-            f"Dataset '{name}' not found at {path}\n"
+            f"Asset '{name}' not found at {path}\n"
             f"Expected location: {path}\n"
-            f"Check that the dataset has been downloaded or created."
+            f"Check that the asset has been downloaded or created."
         )
 
     return path
