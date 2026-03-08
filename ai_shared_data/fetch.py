@@ -29,13 +29,19 @@ def ensure_asset(name: str) -> Path:
     Returns the asset path if found.
     Raises FileNotFoundError if the asset is missing.
     """
+    asset = ASSETS[name]
     path = get_asset_path(name)
+
+    if path.exists():
+        return path
+
+    if asset.builder:
+        print(f"Building asset: {name}")
+        asset.builder()
 
     if not path.exists():
         raise FileNotFoundError(
-            f"Asset '{name}' not found at {path}\n"
-            f"Expected location: {path}\n"
-            f"Check that the asset has been downloaded or created."
+            f"Asset '{name}' not found at {path}"
         )
 
     return path

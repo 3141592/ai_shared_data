@@ -132,7 +132,7 @@ ai_shared_data/registry.py
 Example:
 
 ```python
-DATASETS["asv_raw"] = {
+ASSETS["asv_raw"] = {
     "url": "...",
     "target": "asv/asv.txt"
 }
