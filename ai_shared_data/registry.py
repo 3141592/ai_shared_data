@@ -3,7 +3,7 @@ from typing import Optional, Callable
 from ai_shared_data.builders import build_acl_imdb, build_asv_raw
 from ai_shared_data.builders import build_jena_climate, build_asv_clean_nt
 from ai_shared_data.builders import build_dogs_vs_cats, build_oxford_pets
-from ai_shared_data.builders import build_glove_6B
+from ai_shared_data.builders import build_glove_6B,  build_spa_eng
 
 @dataclass
 class Asset:
@@ -67,6 +67,14 @@ DATASETS = {
         relative_path="glove.6B",
         description="GloVe 6B 300-dimensional word embeddings",
         builder=build_glove_6B
+    ),
+
+    "spa-eng": Asset(
+        name="spa-eng",
+        kind="datasets",
+        relative_path="spa-eng",
+        description="Spanish-English translation dataset",
+        builder=build_spa_eng
     ),
 
     "asv_raw": Asset(
