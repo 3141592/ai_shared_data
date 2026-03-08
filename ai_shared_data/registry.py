@@ -3,6 +3,7 @@ from typing import Optional, Callable
 from ai_shared_data.builders import build_acl_imdb, build_asv_raw
 from ai_shared_data.builders import build_jena_climate, build_asv_clean_nt
 from ai_shared_data.builders import build_dogs_vs_cats, build_oxford_pets
+from ai_shared_data.builders import build_glove_6B
 
 @dataclass
 class Asset:
@@ -37,6 +38,35 @@ DATASETS = {
         relative_path="aclImdb",
         description="Large Movie Review Dataset for binary sentiment classification",
         builder=build_acl_imdb
+    ),
+
+    "glove.6B.50d": Asset(
+        name="glove.6B.50d",
+        kind="embeddings",
+        relative_path="glove.6B",
+        description="GloVe 6B 50-dimensional word embeddings",
+        builder=build_glove_6B
+    ),
+    "glove.6B.100d": Asset(
+        name="glove.6B.100d",
+        kind="embeddings",
+        relative_path="glove.6B",
+        description="GloVe 6B 100-dimensional word embeddings",
+        builder=build_glove_6B
+    ),  
+    "glove.6B.200d": Asset(
+        name="glove.6B.200d",
+        kind="embeddings",
+        relative_path="glove.6B",
+        description="GloVe 6B 200-dimensional word embeddings",
+        builder=build_glove_6B  
+    ),
+    "glove.6B.300d": Asset(
+        name="glove.6B.300d",
+        kind="embeddings",
+        relative_path="glove.6B",
+        description="GloVe 6B 300-dimensional word embeddings",
+        builder=build_glove_6B
     ),
 
     "asv_raw": Asset(
