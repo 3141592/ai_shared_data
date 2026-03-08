@@ -4,6 +4,7 @@ from ai_shared_data.builders import build_acl_imdb, build_asv_raw
 from ai_shared_data.builders import build_jena_climate, build_asv_clean_nt
 from ai_shared_data.builders import build_dogs_vs_cats, build_oxford_pets
 from ai_shared_data.builders import build_glove_6B,  build_spa_eng
+from ai_shared_data.builders import build_fasttext_wiki_news
 
 @dataclass
 class Asset:
@@ -75,6 +76,14 @@ DATASETS = {
         relative_path="spa-eng",
         description="Spanish-English translation dataset",
         builder=build_spa_eng
+    ),
+
+    "wiki-news-300d-1M": Asset(
+        name="wiki-news-300d-1M",
+        kind="embeddings",
+        relative_path="fasttext",
+        description="FastText English word embeddings trained on Wikipedia and news",
+        builder=build_fasttext_wiki_news
     ),
 
     "asv_raw": Asset(
