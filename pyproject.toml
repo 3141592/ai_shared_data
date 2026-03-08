@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ai-shared-data"
+version = "0.1.0"
+description = "Shared dataset utilities for local ML repositories"
+readme = "README.md"
+requires-python = ">=3.10"
+
+[tool.setuptools.packages.find]
+where = ["."]
+
+[project.scripts]
+ai-data = "ai_shared_data.__main__:main"

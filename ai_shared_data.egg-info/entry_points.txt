@@ -1,0 +1,2 @@
+[console_scripts]
+ai-data = ai_shared_data.__main__:main

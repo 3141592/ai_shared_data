@@ -1,3 +1,10 @@
+Metadata-Version: 2.4
+Name: ai-shared-data
+Version: 0.1.0
+Summary: Shared dataset utilities for local ML repositories
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+
 # ai_shared_data
 
 Shared dataset utilities for my machine learning and mechanistic interpretability projects.

@@ -1,0 +1,12 @@
+README.md
+pyproject.toml
+ai_shared_data/__init__.py
+ai_shared_data/__main__.py
+ai_shared_data/fetch.py
+ai_shared_data/paths.py
+ai_shared_data/registry.py
+ai_shared_data.egg-info/PKG-INFO
+ai_shared_data.egg-info/SOURCES.txt
+ai_shared_data.egg-info/dependency_links.txt
+ai_shared_data.egg-info/entry_points.txt
+ai_shared_data.egg-info/top_level.txt
