@@ -169,6 +169,41 @@ def build_fasttext_wiki_news() -> None:
     extract_zip(zip_path, root)
     remove_file(zip_path)
 
+# Deep Learning with Python Ch 12 - Celeb-Gan
+def build_celeba_gan() -> None:
+    root = get_asset_home("datasets") / "celeba_gan"
+    tmp = ensure_tmp_dir()
+    zip_path = tmp / "img_align_celeba.zip"
+
+    root.mkdir(parents=True, exist_ok=True)
+
+    # Download using gdown
+    subprocess.run([
+        "gdown",
+        "--id",
+        "0B7EVK8r0v71pZjFTYXZWM3FlRnM",
+        "-O",
+        str(zip_path)
+    ], check=True)
+
+    # Extract images
+    extract_zip(zip_path, root)
+
+    remove_file(zip_path)
+
+# Build a Large Language Model from Scratch - The Verdict
+def build_the_verdict() -> None:
+    root = get_asset_home("datasets") / "interpretability"
+    tmp = ensure_tmp_dir()
+    tmp_path = tmp / "the_verdict.txt"
+    out_path = root / "the_verdict.txt"
+
+    ensure_dir(root)
+
+    download_file("https://en.wikisource.org/wiki/The_Verdict", tmp_path)
+    shutil.copy2(tmp_path, out_path)
+    remove_file(tmp_path)
+
 # Build a Large Language Model from Scratch - ASV Bible text
 def build_asv_raw() -> None:
     root = get_asset_home("datasets") / "interpretability"

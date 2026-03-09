@@ -4,7 +4,8 @@ from ai_shared_data.builders import build_acl_imdb, build_asv_raw
 from ai_shared_data.builders import build_jena_climate, build_asv_clean_nt
 from ai_shared_data.builders import build_dogs_vs_cats, build_oxford_pets
 from ai_shared_data.builders import build_glove_6B,  build_spa_eng
-from ai_shared_data.builders import build_fasttext_wiki_news
+from ai_shared_data.builders import build_fasttext_wiki_news, build_celeba_gan
+from ai_shared_data.builders import build_the_verdict
 
 @dataclass
 class Asset:
@@ -41,6 +42,59 @@ DATASETS = {
         builder=build_acl_imdb
     ),
 
+    "spa-eng": Asset(
+        name="spa-eng",
+        kind="datasets",
+        relative_path="spa-eng",
+        description="Spanish-English translation dataset",
+        builder=build_spa_eng
+    ),
+
+    "celeba_gan": Asset(
+        name="celeba_gan",
+        kind="datasets",
+        relative_path="celeba_gan",
+        description="CelebA dataset subset used for GAN examples",
+        builder=build_celeba_gan
+    ),
+
+    "asv_raw": Asset(
+        name="asv_raw",
+        kind="datasets",
+        relative_path="interpretability/asv.txt",
+        description="American Standard Version Bible",
+        builder=build_asv_raw
+    ),
+
+    "asv_clean_nt": Asset(
+        name="asv_clean_nt",
+        kind="datasets",
+        relative_path="interpretability/asv_clean_nt.txt",
+        description="Cleaned New Testament used for language modeling",
+        builder=build_asv_clean_nt,
+        depends_on=["asv_raw"]
+    ),
+
+    "the_verdict": Asset(
+        name="the_verdict",
+        kind="datasets",
+        relative_path="interpretability/the_verdict.txt",
+        description="Short text used in LLM-from-scratch examples",
+        builder=build_the_verdict
+    ),
+
+    "jena_climate": Asset(
+        name="jena_climate",
+        kind="datasets",
+        relative_path="jena_climate_2009_2016.csv",
+        description="Temperature forecasting dataset",
+        builder=build_jena_climate
+    ),
+}
+
+EMBEDDINGS = {
+    # "glove_6B": Asset(...),
+    # "fasttext_wiki_news": Asset(...),
     "glove.6B.50d": Asset(
         name="glove.6B.50d",
         kind="embeddings",
@@ -70,14 +124,6 @@ DATASETS = {
         builder=build_glove_6B
     ),
 
-    "spa-eng": Asset(
-        name="spa-eng",
-        kind="datasets",
-        relative_path="spa-eng",
-        description="Spanish-English translation dataset",
-        builder=build_spa_eng
-    ),
-
     "wiki-news-300d-1M": Asset(
         name="wiki-news-300d-1M",
         kind="embeddings",
@@ -85,43 +131,6 @@ DATASETS = {
         description="FastText English word embeddings trained on Wikipedia and news",
         builder=build_fasttext_wiki_news
     ),
-
-    "asv_raw": Asset(
-        name="asv_raw",
-        kind="datasets",
-        relative_path="interpretability/asv.txt",
-        description="American Standard Version Bible",
-        builder=build_asv_raw
-    ),
-
-    "asv_clean_nt": Asset(
-        name="asv_clean_nt",
-        kind="datasets",
-        relative_path="interpretability/asv_clean_nt.txt",
-        description="Cleaned New Testament used for language modeling",
-        builder=build_asv_clean_nt,
-        depends_on=["asv_raw"]
-    ),
-
-    "the_verdict": Asset(
-        name="the_verdict",
-        kind="datasets",
-        relative_path="interpretability/the_verdict.txt",
-        description="Short text used in LLM-from-scratch examples",
-    ),
-
-    "jena_climate": Asset(
-        name="jena_climate",
-        kind="datasets",
-        relative_path="jena_climate_2009_2016.csv",
-        description="Temperature forecasting dataset",
-        builder=build_jena_climate
-    ),
-}
-
-EMBEDDINGS = {
-    # "glove_6B": Asset(...),
-    # "fasttext_wiki_news": Asset(...),
 }
 
 MODELS = {
