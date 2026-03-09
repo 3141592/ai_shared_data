@@ -135,6 +135,12 @@ EMBEDDINGS = {
 
 MODELS = {
     # future model checkpoints
+    "binary_2gram": Asset(
+        name="binary_2gram",
+        kind="models",
+        relative_path="binary_2gram.keras",
+        description="Binary sentiment classifier trained on IMDB 2-gram features",
+    )
 }
 
 ARCHIVES = {

@@ -2,6 +2,7 @@ README.md
 pyproject.toml
 ai_shared_data/__init__.py
 ai_shared_data/__main__.py
+ai_shared_data/builders.py
 ai_shared_data/fetch.py
 ai_shared_data/paths.py
 ai_shared_data/registry.py
