@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Optional, Callable
 from ai_shared_data.builders import build_acl_imdb, build_asv_raw
 from ai_shared_data.builders import build_jena_climate, build_asv_clean_nt
@@ -15,6 +16,8 @@ class Asset:
     description: Optional[str] = None
     builder: Optional[Callable[[], None]] = None
     depends_on: Optional[list[str]] = None    
+    framework: Optional[str] = None
+    path: Optional[Path] = None  # to be filled in after building/downloading
 
 
 DATASETS = {
@@ -138,12 +141,14 @@ MODELS = {
     "binary_1gram": Asset(
         name="binary_1gram",
         kind="models",
+        framework="keras",
         relative_path="binary_1gram.keras",
         description="Binary sentiment classifier trained on IMDB 1-gram features",
     ),
     "binary_2gram": Asset(
         name="binary_2gram",
         kind="models",
+        framework="keras",
         relative_path="binary_2gram.keras",
         description="Binary sentiment classifier trained on IMDB 2-gram features",
     ),
@@ -151,6 +156,7 @@ MODELS = {
     "binary_2gram": Asset(
         name="binary_2gram",
         kind="models",
+        framework="keras",
         relative_path="binary_2gram.keras",
         description="Binary sentiment classifier trained on IMDB 2-gram features",
     ),
@@ -158,6 +164,7 @@ MODELS = {
     "tfidf_2gram": Asset(
         name="tfidf_2gram",
         kind="models",
+        framework="keras",
         relative_path="tfidf_2gram.keras",
         description="TF-IDF 2-gram sentiment classifier",
     ),
@@ -165,6 +172,7 @@ MODELS = {
     "glove_embeddings_sequence_model": Asset(
         name="glove_embeddings_sequence_model",
         kind="models",
+        framework="keras",
         relative_path="glove_embeddings_sequence_model.keras",
         description="GloVe embeddings sequence model for sentiment classification   ",
     ),
@@ -172,6 +180,7 @@ MODELS = {
     "one_hot_bidir_gru_with_masking": Asset(
         name="one_hot_bidir_gru_with_masking",
         kind="models",
+        framework="keras",
         relative_path="one_hot_bidir_gru_with_masking.keras",
         description="One-hot encoded bidirectional GRU model with masking for sentiment classification ",
     ),
@@ -179,6 +188,7 @@ MODELS = {
     "one_hot_bidir_gru": Asset(
         name="one_hot_bidir_gru",
         kind="models",
+        framework="keras",
         relative_path="one_hot_bidir_gru.keras",
         description="One-hot encoded bidirectional GRU model for sentiment classification ",
     ),
@@ -186,6 +196,7 @@ MODELS = {
     "one_hot_bidir_lstm": Asset(
         name="one_hot_bidir_lstm",
         kind="models",
+        framework="keras",
         relative_path="one_hot_bidir_lstm.keras",
         description="One-hot encoded bidirectional LSTM model for sentiment classification ",
     ),
@@ -193,6 +204,7 @@ MODELS = {
     "fasttext_embeddings_sequence_model": Asset(
         name="fasttext_embeddings_sequence_model",
         kind="models",
+        framework="keras",
         relative_path="fasttext_embeddings_sequence_model.keras",
         description="FastText embeddings sequence model for sentiment classification ",
     ),
@@ -200,6 +212,7 @@ MODELS = {
     "full_transformer_encoder": Asset(
         name="full_transformer_encoder",
         kind="models",
+        framework="keras",
         relative_path="full_transformer_encoder.keras",
         description="Full Transformer encoder for sentiment classification ",
     ),
@@ -207,6 +220,7 @@ MODELS = {
     "full_transformer_encoder_exploration": Asset(
         name="full_transformer_encoder_exploration",
         kind="models",
+        framework="keras",
         relative_path="full_transformer_encoder_exploration.keras",
         description="Full Transformer encoder for sentiment classification ",
     ),
@@ -214,6 +228,7 @@ MODELS = {
     "transformer_encoder_exploration": Asset(
         name="transformer_encoder_exploration",
         kind="models",
+        framework="keras",
         relative_path="transformer_encoder_exploration.keras",
         description="Full Transformer encoder for sentiment classification ",
     ),
@@ -221,6 +236,7 @@ MODELS = {
     "transformer_encoder": Asset(
         name="transformer_encoder",
         kind="models",
+        framework="keras",
         relative_path="transformer_encoder.keras",
         description="Full Transformer encoder for sentiment classification ",
     ),
@@ -236,7 +252,7 @@ ASSETS.update(DATASETS)
 ASSETS.update(EMBEDDINGS)
 ASSETS.update(MODELS)
 ASSETS.update(ARCHIVES)
-
+REGISTRY = ASSETS
 
 # ---- registry validation ----
 

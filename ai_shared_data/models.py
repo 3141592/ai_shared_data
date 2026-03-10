@@ -1,4 +1,7 @@
 from __future__ import annotations
+from .paths import get_asset_home, get_data_home
+from .registry import REGISTRY, Asset
+from .fetch import get_asset_path
 
 import json
 from datetime import datetime, timezone
@@ -26,7 +29,6 @@ def _build_metadata(
     *,
     name: str,
     framework: str,
-    artifact_type: str,
     script: str | None = None,
     dataset: str | None = None,
     notes: str | None = None,
@@ -35,9 +37,14 @@ def _build_metadata(
     metadata: dict[str, Any] = {
         "name": name,
         "framework": framework,
-        "artifact_type": artifact_type,
         "created": _utc_now_iso(),
     }
+
+    if framework == "keras":
+        metadata["artifact_type"] = "model"
+    elif framework == "torch":
+        metadata["artifact_type"] = "checkpoint"
+
     if script:
         metadata["script"] = script
     if dataset:
@@ -46,6 +53,7 @@ def _build_metadata(
         metadata["notes"] = notes
     if extra:
         metadata["extra"] = extra
+
     return metadata
 
 
@@ -68,12 +76,12 @@ def save_keras_model(
     metadata = _build_metadata(
         name=name,
         framework="keras",
-        artifact_type="model",
         script=script,
         dataset=dataset,
         notes=notes,
         extra=extra,
     )
+
     _write_metadata(model_path.with_suffix(".meta.json"), metadata)
     return model_path
 
@@ -99,11 +107,74 @@ def save_torch_checkpoint(
     metadata = _build_metadata(
         name=name,
         framework="torch",
-        artifact_type="checkpoint",
         script=script,
         dataset=dataset,
         notes=notes,
         extra=extra,
     )
+
     _write_metadata(ckpt_path.with_suffix(".meta.json"), metadata)
     return ckpt_path
+
+
+def save_model_artifact(
+    obj: Any,
+    *,
+    data_root: Path,
+    name: str,
+    framework: str,
+    script: str | None = None,
+    dataset: str | None = None,
+    notes: str | None = None,
+    extra: dict[str, Any] | None = None,
+) -> Path:
+    if framework == "keras":
+        return save_keras_model(
+            obj,
+            data_root=data_root,
+            name=name,
+            script=script,
+            dataset=dataset,
+            notes=notes,
+            extra=extra,
+        )
+
+    if framework == "torch":
+        return save_torch_checkpoint(
+            obj,
+            data_root=data_root,
+            name=name,
+            script=script,
+            dataset=dataset,
+            notes=notes,
+            extra=extra,
+        )
+
+    raise ValueError(f"Unsupported framework: {framework!r}")
+
+from .registry import REGISTRY
+
+def save_registered_model(
+    obj: Any,
+    asset: Asset,
+    *,
+    script: str | None = None,
+    dataset: str | None = None,
+    notes: str | None = None,
+    extra: dict[str, Any] | None = None,
+) -> Path:
+
+    if asset.framework is None:
+        raise ValueError(f"Asset '{asset.name}' has no framework defined")
+
+    return save_model_artifact(
+        obj,
+        data_root=get_asset_home(asset.kind),
+        name=asset.name,
+        framework=asset.framework,
+        script=script,
+        dataset=dataset,
+        notes=notes,
+        extra=extra,
+    )
+

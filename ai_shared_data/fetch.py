@@ -1,8 +1,14 @@
 from pathlib import Path
+from dataclasses import replace
 
 from ai_shared_data.paths import get_asset_home
-from ai_shared_data.registry import ASSETS
+from ai_shared_data.registry import ASSETS, REGISTRY, Asset
 
+
+def get_asset(name: str) -> Asset:
+    asset = REGISTRY[name]
+    resolved_path = get_asset_home(asset.kind) / asset.relative_path
+    return replace(asset, path=resolved_path)
 
 def asset_exists(name: str) -> bool:
     try:
