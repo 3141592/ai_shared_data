@@ -45,7 +45,7 @@ DATASETS = {
     "spa-eng": Asset(
         name="spa-eng",
         kind="datasets",
-        relative_path="spa-eng",
+        relative_path="spa-eng/spa.txt",
         description="Spanish-English translation dataset",
         builder=build_spa_eng
     ),
@@ -98,28 +98,28 @@ EMBEDDINGS = {
     "glove.6B.50d": Asset(
         name="glove.6B.50d",
         kind="embeddings",
-        relative_path="glove.6B",
+        relative_path="glove.6B/glove.6B.50d.txt",
         description="GloVe 6B 50-dimensional word embeddings",
         builder=build_glove_6B
     ),
     "glove.6B.100d": Asset(
         name="glove.6B.100d",
         kind="embeddings",
-        relative_path="glove.6B",
+        relative_path="glove.6B/glove.6B.100d.txt",
         description="GloVe 6B 100-dimensional word embeddings",
         builder=build_glove_6B
     ),  
     "glove.6B.200d": Asset(
         name="glove.6B.200d",
         kind="embeddings",
-        relative_path="glove.6B",
+        relative_path="glove.6B/glove.6B.200d.txt",
         description="GloVe 6B 200-dimensional word embeddings",
         builder=build_glove_6B  
     ),
     "glove.6B.300d": Asset(
         name="glove.6B.300d",
         kind="embeddings",
-        relative_path="glove.6B",
+        relative_path="glove.6B/glove.6B.300d.txt",
         description="GloVe 6B 300-dimensional word embeddings",
         builder=build_glove_6B
     ),
@@ -127,7 +127,7 @@ EMBEDDINGS = {
     "wiki-news-300d-1M": Asset(
         name="wiki-news-300d-1M",
         kind="embeddings",
-        relative_path="fasttext",
+        relative_path="fasttext/wiki-news-300d-1M.vec",
         description="FastText English word embeddings trained on Wikipedia and news",
         builder=build_fasttext_wiki_news
     ),
@@ -135,12 +135,96 @@ EMBEDDINGS = {
 
 MODELS = {
     # future model checkpoints
+    "binary_1gram": Asset(
+        name="binary_1gram",
+        kind="models",
+        relative_path="binary_1gram.keras",
+        description="Binary sentiment classifier trained on IMDB 1-gram features",
+    ),
     "binary_2gram": Asset(
         name="binary_2gram",
         kind="models",
         relative_path="binary_2gram.keras",
         description="Binary sentiment classifier trained on IMDB 2-gram features",
-    )
+    ),
+
+    "binary_2gram": Asset(
+        name="binary_2gram",
+        kind="models",
+        relative_path="binary_2gram.keras",
+        description="Binary sentiment classifier trained on IMDB 2-gram features",
+    ),
+
+    "tfidf_2gram": Asset(
+        name="tfidf_2gram",
+        kind="models",
+        relative_path="tfidf_2gram.keras",
+        description="TF-IDF 2-gram sentiment classifier",
+    ),
+
+    "glove_embeddings_sequence_model": Asset(
+        name="glove_embeddings_sequence_model",
+        kind="models",
+        relative_path="glove_embeddings_sequence_model.keras",
+        description="GloVe embeddings sequence model for sentiment classification   ",
+    ),
+
+    "one_hot_bidir_gru_with_masking": Asset(
+        name="one_hot_bidir_gru_with_masking",
+        kind="models",
+        relative_path="one_hot_bidir_gru_with_masking.keras",
+        description="One-hot encoded bidirectional GRU model with masking for sentiment classification ",
+    ),
+
+    "one_hot_bidir_gru": Asset(
+        name="one_hot_bidir_gru",
+        kind="models",
+        relative_path="one_hot_bidir_gru.keras",
+        description="One-hot encoded bidirectional GRU model for sentiment classification ",
+    ),
+
+    "one_hot_bidir_lstm": Asset(
+        name="one_hot_bidir_lstm",
+        kind="models",
+        relative_path="one_hot_bidir_lstm.keras",
+        description="One-hot encoded bidirectional LSTM model for sentiment classification ",
+    ),
+
+    "fasttext_embeddings_sequence_model": Asset(
+        name="fasttext_embeddings_sequence_model",
+        kind="models",
+        relative_path="fasttext_embeddings_sequence_model.keras",
+        description="FastText embeddings sequence model for sentiment classification ",
+    ),
+
+    "full_transformer_encoder": Asset(
+        name="full_transformer_encoder",
+        kind="models",
+        relative_path="full_transformer_encoder.keras",
+        description="Full Transformer encoder for sentiment classification ",
+    ),
+
+    "full_transformer_encoder_exploration": Asset(
+        name="full_transformer_encoder_exploration",
+        kind="models",
+        relative_path="full_transformer_encoder_exploration.keras",
+        description="Full Transformer encoder for sentiment classification ",
+    ),
+
+    "transformer_encoder_exploration": Asset(
+        name="transformer_encoder_exploration",
+        kind="models",
+        relative_path="transformer_encoder_exploration.keras",
+        description="Full Transformer encoder for sentiment classification ",
+    ),
+
+    "transformer_encoder": Asset(
+        name="transformer_encoder",
+        kind="models",
+        relative_path="transformer_encoder.keras",
+        description="Full Transformer encoder for sentiment classification ",
+    ),
+
 }
 
 ARCHIVES = {
