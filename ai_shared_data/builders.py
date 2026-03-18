@@ -273,3 +273,50 @@ def build_asv_clean_nt() -> None:
     out_dir.mkdir(parents=True, exist_ok=True)
     out_path.write_text("\n".join(lines_out) + "\n", encoding="utf-8")
 
+# Build a Large Language Model from Scratch - Cleaned John's Gospel text for language modeling
+def build_john() -> None:
+    import re
+
+    from ai_shared_data.fetch import ensure_asset
+    from ai_shared_data.paths import ensure_asset_dir
+
+    asv_raw_path = ensure_asset("asv_raw")
+
+    out_dir = ensure_asset_dir("datasets") / "interpretability"
+    out_path = out_dir / "john.txt"
+
+    john = {"John"}
+
+    # Matches lines like:
+    # John 1:1<TAB>text
+    verse_re = re.compile(r"^(.+?)\s+(\d+:\d+)\t(.*)$")
+
+    lines_out = []
+    current_book = None
+
+    with asv_raw_path.open("r", encoding="utf-8") as f:
+        for raw_line in f:
+            line = raw_line.rstrip("\n")
+
+            match = verse_re.match(line)
+            if not match:
+                continue
+
+            book = match.group(1).strip()
+            verse_text = match.group(3).strip()
+
+            if book not in john:
+                continue
+
+            if not verse_text:
+                continue
+
+            if book != current_book:
+                if current_book is not None:
+                    lines_out.append("")
+                current_book = book
+
+            lines_out.append(verse_text)
+
+    out_dir.mkdir(parents=True, exist_ok=True)
+    out_path.write_text("\n".join(lines_out) + "\n", encoding="utf-8")

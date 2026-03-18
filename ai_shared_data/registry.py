@@ -6,7 +6,7 @@ from ai_shared_data.builders import build_jena_climate, build_asv_clean_nt
 from ai_shared_data.builders import build_dogs_vs_cats, build_oxford_pets
 from ai_shared_data.builders import build_glove_6B,  build_spa_eng
 from ai_shared_data.builders import build_fasttext_wiki_news, build_celeba_gan
-from ai_shared_data.builders import build_the_verdict
+from ai_shared_data.builders import build_the_verdict, build_john
 
 @dataclass
 class Asset:
@@ -75,6 +75,15 @@ DATASETS = {
         relative_path="interpretability/asv_clean_nt.txt",
         description="Cleaned New Testament used for language modeling",
         builder=build_asv_clean_nt,
+        depends_on=["asv_raw"]
+    ),
+
+    "john": Asset(
+        name="john",
+        kind="datasets",
+        relative_path="interpretability/john.txt",
+        description="John's Gospel used for language modeling",
+        builder=build_john,
         depends_on=["asv_raw"]
     ),
 
